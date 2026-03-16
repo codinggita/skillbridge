@@ -3,5 +3,5 @@ node_modules
 src/config
 src/controllers
 src/middlewares
-src/models
-src/routes
+
+
