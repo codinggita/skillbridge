@@ -4,9 +4,13 @@ import './index.css'
 import axios from 'axios'
 import App from './App.jsx'
 
-// Only use the Render backend when deployed to Vercel (production mode)
-if (import.meta.env.MODE === 'production') {
-    axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'https://backend-with-mongo.onrender.com';
+// Prefer explicit VITE_API_URL; otherwise use a safe default by environment.
+if (import.meta.env.VITE_API_URL) {
+    axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+} else if (import.meta.env.MODE === 'production') {
+    axios.defaults.baseURL = 'https://backend-with-mongo.onrender.com';
+} else {
+    axios.defaults.baseURL = 'http://localhost:5000';
 }
 
 createRoot(document.getElementById('root')).render(
