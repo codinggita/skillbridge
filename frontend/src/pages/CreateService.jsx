@@ -50,7 +50,8 @@ const CreateService = () => {
             
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Failed to create service.');
+            const errorMessage = err.response?.data?.message || (err.message === 'Network Error' ? 'Network error: The backend server is unreachable. Please ensure it is running.' : 'Failed to create service.');
+            setError(errorMessage);
         } finally {
             setIsSubmitting(false);
         }

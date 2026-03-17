@@ -119,12 +119,10 @@ const Dashboard = () => {
                     </div>
                 </div>
                 
-                {user?.role === 'provider' && (
-                    <Link to="/create-service" className="btn-glow flex items-center gap-2 group">
-                        <Plus className="w-5 h-5 group-hover:rotate-180 transition-transform duration-300" />
-                        <span>Create Service</span>
-                    </Link>
-                )}
+                <Link to="/create-service" className="btn-glow flex items-center gap-2 group">
+                    <Plus className="w-5 h-5 group-hover:rotate-180 transition-transform duration-300" />
+                    <span>Create Service</span>
+                </Link>
             </motion.div>
 
             {/* Quick Stats Overview */}

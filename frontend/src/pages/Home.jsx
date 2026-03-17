@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, Zap, Shield, Star, Briefcase, ChevronRight, ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
     const { scrollYProgress } = useScroll();
+    const { user } = useAuth();
     
     // Parallax background effects
     const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
@@ -112,7 +114,7 @@ const Home = () => {
                         <Link to="/services" className="btn-glow px-8 py-4 text-lg w-full sm:w-auto flex items-center justify-center gap-2">
                             Explore Services <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link to="/signup" className="btn-secondary px-8 py-4 text-lg w-full sm:w-auto">
+                        <Link to={user ? "/create-service" : "/signup"} className="btn-secondary px-8 py-4 text-lg w-full sm:w-auto">
                             Become a Provider
                         </Link>
                     </motion.div>
@@ -209,7 +211,7 @@ const Home = () => {
                             Join thousands of locals who are exchanging services, building networks, and earning money doing what they love.
                         </p>
                         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <Link to="/signup" className="inline-block bg-white text-purple-700 font-bold px-10 py-5 rounded-2xl shadow-xl hover:shadow-2xl transition-all text-lg tracking-wide">
+                            <Link to={user ? "/create-service" : "/signup"} className="inline-block bg-white text-purple-700 font-bold px-10 py-5 rounded-2xl shadow-xl hover:shadow-2xl transition-all text-lg tracking-wide">
                                 Join SkillBridge Today
                             </Link>
                         </motion.div>

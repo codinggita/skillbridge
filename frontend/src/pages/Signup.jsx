@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { UserPlus, ArrowRight, Briefcase, Search } from 'lucide-react';
@@ -16,8 +16,14 @@ const Signup = () => {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     
-    const { signup } = useAuth();
+    const { signup, user } = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard');
+        }
+    }, [user, navigate]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -106,8 +112,8 @@ const Signup = () => {
                                         <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-3 transition-colors ${formData.role === 'user' ? 'bg-purple-100 text-purple-600 dark:bg-cyan-900/40 dark:text-cyan-400' : 'bg-slate-100 text-slate-400 dark:bg-slate-700/50'}`}>
                                              <Search className="w-5 h-5" />
                                         </div>
-                                        <span className="font-bold text-slate-900 dark:text-white mb-1">Hire Services</span>
-                                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">Find locals for micro-jobs</span>
+                                        <span className="font-bold text-slate-900 dark:text-white mb-1">Client Account</span>
+                                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">Hire locals for micro-jobs</span>
                                         {formData.role === 'user' && <div className="absolute top-0 right-0 w-16 h-16 bg-purple-500/10 dark:bg-cyan-500/10 rounded-bl-full border-b border-l border-purple-500/20 dark:border-cyan-500/20 blur-sm"></div>}
                                     </label>
                                     
@@ -128,8 +134,8 @@ const Signup = () => {
                                         <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-3 transition-colors ${formData.role === 'provider' ? 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400' : 'bg-slate-100 text-slate-400 dark:bg-slate-700/50'}`}>
                                              <Briefcase className="w-5 h-5" />
                                         </div>
-                                        <span className="font-bold text-slate-900 dark:text-white mb-1">Offer Services</span>
-                                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">Earn money sharing skills</span>
+                                        <span className="font-bold text-slate-900 dark:text-white mb-1">Provider Account</span>
+                                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-tight">Offer services and earn</span>
                                         {formData.role === 'provider' && <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/10 rounded-bl-full border-b border-l border-indigo-500/20 blur-sm"></div>}
                                     </label>
                                 </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LogIn, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,9 +11,15 @@ const Login = () => {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     
-    const { login } = useAuth();
+    const { login, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/dashboard');
+        }
+    }, [user, navigate]);
     
     const from = location.state?.from?.pathname || '/dashboard';
 
